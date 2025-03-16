@@ -4,6 +4,8 @@ import { setFilter, RootState } from '../redux/store';
 
 const TodoFilter: React.FC = () => {
   const dispatch = useDispatch();
+  let testing: RootState = useSelector((state: RootState) => state);
+  console.log(typeof testing)
   const currentFilter = useSelector((state: RootState) => state.filter);
 
   return (

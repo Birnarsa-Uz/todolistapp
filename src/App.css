@@ -94,3 +94,189 @@ h1 {
 .todo-filter button:hover:not(.active) {
   background-color: #0069d9;
 }
+/* Umumiy uslublar */
+.app {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* TodoInput uslublari */
+.todo-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.todo-input input[type="text"],
+.todo-input input[type="datetime-local"],
+.todo-input select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  flex: 1;
+}
+
+.todo-input input[type="text"] {
+  flex: 2;
+}
+
+.todo-input select {
+  flex: 1;
+  cursor: pointer;
+}
+
+.todo-input button {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.todo-input button:hover {
+  background-color: #45a049;
+}
+
+/* TodoFilter uslublari */
+.todo-filter {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.todo-filter button {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.todo-filter button.active {
+  background-color: #2196f3;
+  color: white;
+  border-color: #2196f3;
+}
+
+.todo-filter button:hover {
+  background-color: #e0e0e0;
+}
+
+/* SearchBar uslublari (yangi komponent uchun) */
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* TodoList uslublari */
+.todo-list {
+  list-style: none;
+  padding: 0;
+}
+
+.todo-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+/* Prioritet bo‘yicha ranglar */
+.todo-list li.high {
+  border-left: 5px solid #f44336;
+}
+
+.todo-list li.medium {
+  border-left: 5px solid #ff9800;
+}
+
+.todo-list li.low {
+  border-left: 5px solid #4caf50;
+}
+
+/* Muddat o‘tgan vazifalar */
+.todo-list li.overdue {
+  background-color: #ffebee;
+  border-left: 5px solid #f44336;
+}
+
+/* Checkbox va matn */
+.todo-list li input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.todo-list li span {
+  flex: 1;
+  font-size: 16px;
+  color: #333;
+}
+
+.todo-list li.completed span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+/* Tahrirlash inputi */
+.todo-list li input[type="text"] {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Tugmalar */
+.todo-list li button {
+  padding: 5px 10px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.todo-list li button.edit {
+  background-color: #ff9800;
+  color: white;
+}
+
+.todo-list li button.edit:hover {
+  background-color: #f57c00;
+}
+
+.todo-list li button.delete {
+  background-color: #f44336;
+  color: white;
+}
+
+.todo-list li button.delete:hover {
+  background-color: #d32f2f;
+}

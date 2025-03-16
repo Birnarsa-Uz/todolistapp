@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Todo } from '../redux/types';
-import { toggleTodo, deleteTodo, RootState } from '../redux/store';
+import { Task, Todo } from '../redux/types';
+import { toggleTask, deleteTask } from '../redux/store';
 
 const TodoList: React.FC = () => {
   const dispatch = useDispatch();
-  const todos = useSelector((state: RootState) => state.todos);
-  const filter = useSelector((state: RootState) => state.filter);
+  const todos = useSelector((state: any) => state.todos) as Task[];
+  const filter = useSelector((state: any) => state.filter) as string;
 
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'COMPLETED') return todo.completed;
@@ -21,12 +21,13 @@ const TodoList: React.FC = () => {
           <input
             type="checkbox"
             checked={todo.completed}
-            onChange={() => dispatch(toggleTodo(todo.id))}
+            onChange={() => dispatch(toggleTask(todo.id))}
           />
           <span>{todo.text}</span>
-          <button onClick={() => dispatch(deleteTodo(todo.id))}>O‘chirish</button>
+          <button onClick={() => dispatch(deleteTask(todo.id))}>O‘chirish</button>
         </li>
       ))}
+      <var></var>
     </ul>
   );
 };
