@@ -4,30 +4,30 @@ import { setFilter, RootState } from '../redux/store';
 
 const TodoFilter: React.FC = () => {
   const dispatch = useDispatch();
-  let testing: RootState = useSelector((state: RootState) => state);
-  console.log(typeof testing)
   const currentFilter = useSelector((state: RootState) => state.filter);
+
+  // Filtr tugmalarining ma'lumotlari
+  const filters = [
+    { value: 'ALL' as const, label: 'Barchasi' },
+    { value: 'COMPLETED' as const, label: 'Bajarilgan' },
+    { value: 'INCOMPLETE' as const, label: 'Bajarilmagan' },
+  ];
+
+  const handleFilterChange = (filter: 'ALL' | 'COMPLETED' | 'INCOMPLETE') => {
+    dispatch(setFilter(filter));
+  };
 
   return (
     <div className="todo-filter">
-      <button
-        className={currentFilter === 'ALL' ? 'active' : ''}
-        onClick={() => dispatch(setFilter('ALL'))}
-      >
-        Barchasi
-      </button>
-      <button
-        className={currentFilter === 'COMPLETED' ? 'active' : ''}
-        onClick={() => dispatch(setFilter('COMPLETED'))}
-      >
-        Bajarilgan
-      </button>
-      <button
-        className={currentFilter === 'INCOMPLETE' ? 'active' : ''}
-        onClick={() => dispatch(setFilter('INCOMPLETE'))}
-      >
-        Bajarilmagan
-      </button>
+      {filters.map((filter) => (
+        <button
+          key={filter.value}
+          className={currentFilter === filter.value ? 'active' : ''}
+          onClick={() => handleFilterChange(filter.value)}
+        >
+          {filter.label}
+        </button>
+      ))}
     </div>
   );
 };

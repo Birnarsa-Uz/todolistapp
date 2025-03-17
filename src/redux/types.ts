@@ -1,13 +1,20 @@
-export interface Todo {
-  id: number
-  text: string
-  completed: boolean
+export interface Subtask {
+  id: string;
+  text: string;
+  completed: boolean;
 }
 
 export interface Task {
-  id: string; // uuid ishlatamiz
+  id: string;
   text: string;
   completed: boolean;
-  deadline?: string; // ISO formatida, masalan "2025-03-20T14:30"
+  deadline?: string;
   priority: 'HIGH' | 'MEDIUM' | 'LOW';
+  category: string;
+  subtasks: Subtask[];
+}
+
+export interface Category {
+  id: string;
+  name: string;
 }

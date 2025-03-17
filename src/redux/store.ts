@@ -1,29 +1,36 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Task } from './types';
+import { Task, Category } from './types'; // 'Subtask' ni olib tashladik
 
-interface TaskState {
+interface ProjectState {
   tasks: Task[];
+  categories: Category[];
   filter: 'ALL' | 'COMPLETED' | 'INCOMPLETE';
   searchQuery: string;
+  selectedCategory: string | null;
 }
 
-const initialState: TaskState = {
+const initialState: ProjectState = {
   tasks: [],
+  categories: [
+    { id: '1', name: 'Ish' },
+    { id: '2', name: 'Shaxsiy' },
+    { id: '3', name: 'Ta’lim' },
+  ],
   filter: 'ALL',
   searchQuery: '',
+  selectedCategory: null,
 };
 
-const taskSlice = createSlice({
-  name: 'tasks',
+const projectSlice = createSlice({
+  name: 'project',
   initialState,
   reducers: {
     addTask: (state, action: PayloadAction<Omit<Task, 'id' | 'completed'>>) => {
-      const newTask: Task = {
-        id: crypto.randomUUID(), // uuid o‘rniga
+      state.tasks.push({
+        id: crypto.randomUUID(),
         completed: false,
         ...action.payload,
-      };
-      state.tasks.push(newTask);
+      });
     },
     toggleTask: (state, action: PayloadAction<string>) => {
       const task = state.tasks.find((t) => t.id === action.payload);
@@ -36,11 +43,31 @@ const taskSlice = createSlice({
       const index = state.tasks.findIndex((t) => t.id === action.payload.id);
       if (index !== -1) state.tasks[index] = action.payload;
     },
-    setFilter: (state, action: PayloadAction<TaskState['filter']>) => {
+    addSubtask: (state, action: PayloadAction<{ taskId: string; text: string }>) => {
+      const task = state.tasks.find((t) => t.id === action.payload.taskId);
+      if (task) {
+        task.subtasks.push({
+          id: crypto.randomUUID(),
+          text: action.payload.text,
+          completed: false,
+        });
+      }
+    },
+    toggleSubtask: (state, action: PayloadAction<{ taskId: string; subtaskId: string }>) => {
+      const task = state.tasks.find((t) => t.id === action.payload.taskId);
+      if (task) {
+        const subtask = task.subtasks.find((s) => s.id === action.payload.subtaskId);
+        if (subtask) subtask.completed = !subtask.completed;
+      }
+    },
+    setFilter: (state, action: PayloadAction<ProjectState['filter']>) => {
       state.filter = action.payload;
     },
     setSearchQuery: (state, action: PayloadAction<string>) => {
       state.searchQuery = action.payload;
+    },
+    setCategory: (state, action: PayloadAction<string | null>) => {
+      state.selectedCategory = action.payload;
     },
     loadTasks: (state, action: PayloadAction<Task[]>) => {
       state.tasks = action.payload;
@@ -48,10 +75,21 @@ const taskSlice = createSlice({
   },
 });
 
-export const { addTask, toggleTask, deleteTask, editTask, setFilter, setSearchQuery, loadTasks } = taskSlice.actions;
+export const {
+  addTask,
+  toggleTask,
+  deleteTask,
+  editTask,
+  addSubtask,
+  toggleSubtask,
+  setFilter,
+  setSearchQuery,
+  setCategory,
+  loadTasks,
+} = projectSlice.actions;
 
 export const store = configureStore({
-  reducer: taskSlice.reducer,
+  reducer: projectSlice.reducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;
